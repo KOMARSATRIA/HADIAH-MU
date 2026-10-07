@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun! 🎉</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Container Efek Tulisan Jatuh -->
+    <div id="fallingContainer" class="falling-container"></div>
+
+    <!-- ELEMEN MUSIK BACKGROUND HALAMAN 1 (NO LOOP & BERURUTAN) -->
+    <audio id="bgMusicPage1_part1" preload="auto">
+        <source src="5.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgMusicPage1_part2" preload="auto">
+        <source src="hbd.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ELEMEN MUSIK HALAMAN 2 & 3 -->
+    <audio id="bgMusicPage2" loop preload="auto">
+        <source src="musik_halaman2.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgMusicPage3" loop preload="auto">
+        <source src="musik_halaman3.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="app-container">
+        
+        <!-- HALAMAN 1: TIUP LILIN -->
+        <section id="page1" class="page active">
+            <div class="header-text">
+                <h1>Selamat Ulang Tahun! 🎂</h1>
+                
+            </div>
+
+            <div class="cake-wrapper" id="cakeContainer">
+                <div class="candle">
+                    <div class="flame" id="flame"></div>
+                    <div class="smoke" id="smoke"></div>
+                </div>
+                <div class="cake">
+                    <div class="layer layer-top"></div>
+                    <div class="layer layer-middle"></div>
+                    <div class="layer layer-bottom"></div>
+                </div>
+            </div>
+
+            <p id="cakeStatus" class="status-badge">Sentuh Kue Untuk Meniup Lilin! 🕯️</p>
+
+            <div class="navigation-bar">
+                <button class="btn btn-prank" id="btnClosePage1">Close ❌</button>
+                <button class="btn btn-next" id="btnNext1" onclick="nextPage(2)" disabled>Lanjut (3s) ⏳</button>
+            </div>
+        </section>
+
+
+        <!-- HALAMAN 2: UCAPAN SELAMAT ULANG TAHUN + FOTO -->
+        <section id="page2" class="page">
+            <div class="header-text">
+                <h1>Pesan Khusus Untukmu 💌</h1>
+                <p>Ada surat kecil dari hati nih...</p>
+            </div>
+
+            <div class="card-letter">
+                <div class="letter-badge">💖 Special For You 💖</div>
+                
+                <!-- BINGKAI FOTO HALAMAN 2 -->
+                <div class="photo-frame">
+                    <img src="foto.jpg" alt="Foto Spesial" id="page2Photo">
+                </div>
+
+                <div class="typing-container">
+                    <p id="typingText"></p>
+                </div>
+            </div>
+
+            <div class="navigation-bar">
+                <button class="btn btn-prank" id="btnClosePage2">Close ❌</button>
+                <button class="btn btn-next" id="btnNext2" onclick="nextPage(3)" disabled>Pilih Hadiah (5s) ⏳</button>
+            </div>
+        </section>
+
+
+        <!-- HALAMAN 3: PILIHAN HADIAH & FORM TANGGAL -->
+        <section id="page3" class="page">
+            <div class="header-text">
+                <h1>Pilih Hadiah Spesialmu! 🎁</h1>
+                <p>Silakan pilih 1 kado yang paling kamu impikan hari ini:</p>
+            </div>
+
+            <!-- TAMPILAN KARTU HADIAH -->
+            <div class="gifts-grid" id="giftsGrid">
+                <!-- Hadiah 1 -->
+                <div class="gift-card" onclick="selectGift('Jalan-jalan sama Ay', '🚗')">
+                    <div class="gift-image">🚗💨</div>
+                    <h3>Jalan-jalan sama Ay</h3>
+                    <p>Keliling kota santai sambil ngobrol dan makan mi ayamm</p>
+                    <button class="btn-select">Pilih Ini ❤️</button>
+                </div>
+
+                <!-- Hadiah 2 -->
+                <div class="gift-card" onclick="selectGift('Ke Pantai', '🏖️')">
+                    <div class="gift-image">🏖️🌊</div>
+                    <h3>Ke Pantai</h3>
+                    <p>Menikmati angin laut, liat sunset indah, dan main pasir bareng!</p>
+                    <button class="btn-select">Pilih Ini 🌊</button>
+                </div>
+
+                <!-- Hadiah 3 -->
+                <div class="gift-card" onclick="selectGift('Ke Pasar Malam Alun-Alun', '🎡')">
+                    <div class="gift-image">🎡🍿</div>
+                    <h3>Pasar Malam Alun-Alun</h3>
+                    <p>main permainan seru, dan jajan makanan enak!</p>
+                    <button class="btn-select">Pilih Ini 🎡</button>
+                </div>
+            </div>
+
+            <!-- FORMULIR JADWAL & IDENTITAS -->
+            <div class="schedule-form-card" id="scheduleFormCard" style="display: none;">
+                <div class="selected-gift-banner">
+                    <span id="selectedGiftIcon">🎁</span>
+                    <strong id="selectedGiftName">Hadiah Terpilih</strong>
+                </div>
+
+                <form id="giftDetailForm" onsubmit="submitGiftDetail(event)">
+                    <div class="form-group">
+                        <label for="userName">Nama / Identitas Kamu:</label>
+                        <input type="text" id="userName" placeholder="Contoh: Beby Sweet / Ay" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDay">Pilih Hari:</label>
+                        <select id="eventDay" required>
+                            <option value="">-- Pilih Hari --</option>
+                            
+                            <option value="Jumat">Jumat</option>
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDateNum">Tanggal:</label>
+                            <select id="eventDateNum" required>
+                                <option value="">-- Tgl --</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                                <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                                <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                                <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                                <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                                <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventMonth">Bulan:</label>
+                            <select id="eventMonth" required>
+                                <option value="">-- Bulan --</option>
+                              
+                                <option value="Oktober">Oktober</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userNotes">Pesan / Catatan Tambahan (Opsional):</label>
+                        <textarea id="userNotes" rows="2" placeholder="Mau jam berapa atau beli jajan apa nanti..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetGiftSelection()">⬅️ Ganti Hadiah</button>
+                        <button type="submit" class="btn btn-next">Kirim Janji 💕</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="navigation-bar">
+                <button class="btn btn-prank" id="btnClosePage3" style="width: 100%;">Close ❌</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODAL POPUP KONFIRMASI HADIAH -->
+    <div id="giftModal" class="modal">
+        <div class="modal-content">
+            <div id="modalIcon" style="font-size: 50px;">🎁</div>
+            <h2 id="modalTitle">Janji Berhasil Dibuat!</h2>
+            <div id="modalMessage" class="modal-summary"></div>
+            <!-- Tombol Kirim ke WhatsApp -->
+            <button class="btn btn-next" onclick="sendToWhatsApp('6285602959536')" style="margin-top: 15px; width: 100%; background: #25D366; color: white;">Kirim ke WA 📲</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

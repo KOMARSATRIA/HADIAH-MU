@@ -1,0 +1,504 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+}
+
+body {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   EFEK TULISAN & PARTICLES JATUH
+========================================== */
+.falling-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.falling-item {
+    position: absolute;
+    top: -50px;
+    color: rgba(255, 71, 126, 0.7);
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: fall linear infinite;
+    text-shadow: 0 2px 5px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0.2;
+    }
+}
+
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 30px 20px;
+    box-shadow: 0 15px 35px rgba(238, 105, 131, 0.3);
+    position: relative;
+    min-height: 580px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.page {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    width: 100%;
+    flex: 1;
+}
+
+.page.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header-text h1 {
+    font-family: 'Fredoka', cursive;
+    color: #ff477e;
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.header-text p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   HALAMAN 1: KUE ULANG TAHUN & TIUP LILIN
+========================================== */
+.cake-wrapper {
+    position: relative;
+    width: 220px;
+    height: 190px;
+    margin: 30px auto;
+    cursor: pointer;
+}
+
+.cake {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.layer {
+    border-radius: 12px;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
+}
+
+.layer-top {
+    width: 120px;
+    height: 35px;
+    background: #ff758c;
+    border-top: 6px solid #fff;
+}
+
+.layer-middle {
+    width: 160px;
+    height: 40px;
+    background: #ff758c;
+    border-top: 6px solid #fff;
+}
+
+.layer-bottom {
+    width: 200px;
+    height: 45px;
+    background: #ff758c;
+    border-top: 6px solid #fff;
+}
+
+.candle {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 40px;
+    background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff477e 5px, #ff477e 10px);
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.flame {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 18px;
+    background: #ff9d00;
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 10px #ff9d00, 0 0 20px #ff2a00;
+    animation: flicker 0.6s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.15); }
+}
+
+.flame.off {
+    display: none;
+}
+
+.smoke {
+    display: none;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: rgba(180, 180, 180, 0.8);
+    border-radius: 50%;
+}
+
+.smoke.active {
+    display: block;
+    animation: smokeRise 1.2s ease-out forwards;
+}
+
+@keyframes smokeRise {
+    0% { transform: translate(-50%, 0) scale(1); opacity: 0.8; }
+    100% { transform: translate(-50%, -35px) scale(2.5); opacity: 0; }
+}
+
+.status-badge {
+    background: #ffe3e8;
+    color: #ff477e;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================
+   HALAMAN 2: UCAPAN & BINGKAI FOTO
+========================================== */
+.card-letter {
+    background: #fff0f3;
+    border: 2px dashed #ff758c;
+    border-radius: 15px;
+    padding: 25px 20px;
+    width: 100%;
+    min-height: 220px;
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.letter-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff477e;
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* STYLE FOTO HALAMAN 2 */
+.photo-frame {
+    width: 140px;
+    height: 140px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid #ffffff;
+    box-shadow: 0 8px 20px rgba(255, 71, 126, 0.2);
+    margin: 10px 0 15px 0;
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.photo-frame:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.typing-container {
+    width: 100%;
+}
+
+.typing-container p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   HALAMAN 3: HADIAH & FORM DETAIL
+========================================== */
+.gifts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.gift-card {
+    background: #fff;
+    border: 2px solid #ffe0e6;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.gift-card:hover {
+    transform: translateY(-3px);
+    border-color: #ff477e;
+    box-shadow: 0 8px 20px rgba(255, 71, 126, 0.15);
+}
+
+.gift-image {
+    font-size: 38px;
+    margin-bottom: 5px;
+}
+
+.gift-card h3 {
+    font-size: 16px;
+    color: #ff477e;
+    margin-bottom: 3px;
+}
+
+.gift-card p {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.btn-select {
+    background: #ffe3e8;
+    color: #ff477e;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.gift-card:hover .btn-select {
+    background: #ff477e;
+    color: #fff;
+}
+
+/* FORM STYLES */
+.schedule-form-card {
+    width: 100%;
+    background: #fff0f3;
+    border-radius: 18px;
+    padding: 20px;
+    border: 2px solid #ffccd5;
+    margin-bottom: 20px;
+    text-align: left;
+    animation: fadeIn 0.4s ease;
+}
+
+.selected-gift-banner {
+    background: #ff477e;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 10px 12px;
+    border: 1.5px solid #ffccd5;
+    border-radius: 10px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    user-select: text;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #ff477e;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* ==========================================
+   NAVIGASI & TOMBOL PRANK
+========================================== */
+.navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 15px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-next {
+    background: #ff477e;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 71, 126, 0.3);
+    flex: 1;
+}
+
+.btn-next:hover:not(:disabled) {
+    background: #ff2a6d;
+}
+
+.btn-next:disabled {
+    background: #cccccc;
+    color: #666666;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #555;
+    flex: 1;
+}
+
+.btn-prank {
+    background: #e0e0e0;
+    color: #666;
+    position: relative;
+    transition: top 0.15s ease, left 0.15s ease;
+}
+
+/* ==========================================
+   MODAL POPUP
+========================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    animation: popIn 0.3s ease;
+}
+
+.modal-summary {
+    background: #fff0f3;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 13px;
+    color: #444;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.modal-summary strong {
+    color: #ff477e;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

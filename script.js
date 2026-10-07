@@ -134,7 +134,7 @@ function nextPage(pageNumber) {
     }
 
     if (pageNumber === 2) {
-        startNextButtonTimer('btnNext2', 'Pilih Hadiah 🎁', 200);
+        startNextButtonTimer('btnNext2', 'Pilih Hadiah 🎁', 100);
 
         if (!typingExecuted) {
             typeWriterEffect(birthdayMessage, 'typingText', 35);
